@@ -2,6 +2,8 @@
 
 An end-to-end project implementing Gaussian and Multinomial Naive Bayes classifiers entirely from scratch using NumPy and Pandas. This project focuses on understanding probabilistic machine learning from first principles.
 
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow.svg)
+
 ## 🧠 Overview
 
 This project implements two core Naive Bayes variations:
@@ -57,13 +59,12 @@ $$\ln(P(C \mid x)) \propto \ln(P(C)) + \sum_{i=1}^{n} \ln(P(x_i \mid C))$$
 |--------|---------------|--------------|
 | Sama | Feature Engineering | Tokenization, vocabulary, Bag of Words, log-probabilities |
 | Seif | MNB Logic | Laplace smoothing, likelihoods |
-| Team | Evaluation | Sentiment prediction, word visualization |
 
 ## ⚙️ Installation
 
 ```
 # Clone the repository
-git clone <repo-url>
+git clone https://github.com/Sam-Gyu/naive-bayes-from-scratch
 cd naive-bayes-from-scratch
 
 # Install required dependencies
