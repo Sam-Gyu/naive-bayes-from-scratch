@@ -1,0 +1,30 @@
+from src.preprocessing.preprocessor import processed_data
+
+if __name__ == "__main__":
+    # Paths
+    train_path = r"C:\Users\DELL\naive-bayes-from-scratch\data\aclImdb\train"
+    test_path = r"C:\Users\DELL\naive-bayes-from-scratch\data\aclImdb\test"
+
+    train_cache = r"C:\Users\DELL\naive-bayes-from-scratch\data\cache\train_processed.pkl"
+    test_cache = r"C:\Users\DELL\naive-bayes-from-scratch\data\cache\test_processed.pkl"
+
+    # Train data
+    X_train, y_train, vectorizer = processed_data(
+        train_path,
+        sample_size=5000,
+        cache_path=train_cache
+    )
+
+    # Test data (reuse SAME vectorizer)
+    X_test, y_test, _ = processed_data(
+        test_path,
+        vectorizer=vectorizer,
+        sample_size=2000,
+        cache_path=test_cache
+    )
+
+    print("--- Train Data ---")
+    print(X_train.head())
+
+    print("--- Test Data ---")
+    print(X_test.head())
