@@ -15,3 +15,7 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Cache / processed data
+data/cache/*
+data/processed/*
