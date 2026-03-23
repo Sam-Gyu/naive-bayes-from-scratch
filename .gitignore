@@ -18,5 +18,4 @@ Thumbs.db
 
 # Cache / processed data
 data/cache/*
-data/raw/*
 data/processed/*
