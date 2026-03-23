@@ -2,11 +2,11 @@ from src.preprocessing.preprocessor import processed_data
 
 if __name__ == "__main__":
 
-    train_path = r"C:\Users\DELL\naive-bayes-from-scratch\data\aclImdb\train"
-    test_path = r"C:\Users\DELL\naive-bayes-from-scratch\data\aclImdb\test"
+    train_path = r"data\raw\aclImdb\train"
+    test_path = r"data\raw\aclImdb\test"
 
-    train_cache = r"C:\Users\DELL\naive-bayes-from-scratch\data\cache\train_processed.pkl"
-    test_cache = r"C:\Users\DELL\naive-bayes-from-scratch\data\cache\test_processed.pkl"
+    train_cache = r"data\cache\train_processed.pkl"
+    test_cache = r"data\cache\test_processed.pkl"
 
     X_train, y_train, vectorizer = processed_data(
         train_path,
