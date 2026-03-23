@@ -81,6 +81,8 @@ def processed_data(path, sample_size=None, cache_path=None, vectorizer=None):
         columns=vectorizer.get_feature_names_out()
     )
 
+    features_df = (features_df > 0).astype(int)
+
     target = df['target'].values
 
     result = (features_df, target, vectorizer)
