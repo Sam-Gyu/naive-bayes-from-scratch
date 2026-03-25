@@ -1,11 +1,11 @@
 import re
 import string
 import pandas as pd
+import numpy as np
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-from sklearn.feature_extraction.text import CountVectorizer
 from src.data_loader import load_data
 import os
 import pickle
@@ -39,21 +39,50 @@ def clean_df(df, column_name='cleaned_text', verbose=False):
     df = df.drop_duplicates(subset=[column_name])
     if verbose:
         final_count = len(df)
-        print(f"Cleaned: {initial_count} -> {final_count} rows (Removed {initial_count - final_count})")
+        print(f"Removed {initial_count - final_count} rows")
     return df
 
+def vocabulary(text):
+    vocab = {}
+    index = 0
 
-def vectorize_text(text_data, vectorizer=None):
-    if vectorizer is None:
-        vectorizer = CountVectorizer(ngram_range=(1, 1))
-        features = vectorizer.fit_transform(text_data)
-    else:
-        features = vectorizer.transform(text_data)
+    for txt in text:
+        words = txt.lower().split()
+        for word in words:
+            if word not in vocab:
+                vocab[word] = index
+                index += 1
 
-    return features, vectorizer
+    return vocab
 
 
-def processed_data(path, sample_size=None, cache_path=None, vectorizer=None):
+def bag_of_word(text, vocab):
+    bow_vectors = []
+
+    for txt in text:
+        # initialize vector with zeros
+        vector = [0] * len(vocab)
+
+        words = txt.lower().split()
+
+        for word in words:
+            if word in vocab:
+                index = vocab[word]
+                vector[index] += 1
+
+        bow_vectors.append(vector)
+
+    return bow_vectors
+
+
+def vectorize_text(text_data, vocab=None):
+    if vocab is None:
+        vocab = vocabulary(text_data)
+    features = bag_of_word(text_data, vocab)
+    return features, vocab
+
+
+def processed_data(path, sample_size=None, cache_path=None, vocab=None):
     if cache_path and os.path.exists(cache_path):
         print(f"--- Loading cached data from {cache_path} ---")
         with open(cache_path, 'rb') as f:
@@ -73,17 +102,15 @@ def processed_data(path, sample_size=None, cache_path=None, vectorizer=None):
     df = clean_df(df, verbose=True)
     print(f"Shape after cleaning: {df.shape}")
 
-    print("--- Vectorizing Data (CountVectorizer) ---")
-    features, vectorizer = vectorize_text(df['cleaned_text'], vectorizer=vectorizer)
+    print("--- Vectorizing Data ---")
+    features, vocab = vectorize_text(df['cleaned_text'], vocab=vocab)
 
-    features_df = pd.DataFrame.sparse.from_spmatrix(
-        features,
-        columns=vectorizer.get_feature_names_out()
-    )
+    features = np.array(features, dtype=np.int32)
+    features_df = pd.DataFrame(features, columns=list(vocab.keys()))
 
     target = df['target'].values
 
-    result = (features_df, target, vectorizer)
+    result = (features_df, target, vocab)
 
     if cache_path:
         print(f"--- Saving processed data to {cache_path} ---")
