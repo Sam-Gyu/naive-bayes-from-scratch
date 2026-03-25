@@ -19,4 +19,6 @@ def load_data(data_dir):
         "target": labels
     })
 
+    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+
     return df

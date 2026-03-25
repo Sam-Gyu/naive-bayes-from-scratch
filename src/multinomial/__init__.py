@@ -48,10 +48,10 @@ class MultinomialNB:
         X_test = X_test.sparse.to_coo().tocsr()
     
     def get_row(i):
-        row = X_test[i]
+        row = X_test.iloc[i]
         if hasattr(row, 'todense'):
             return np.asarray(row.todense()).flatten()
-        return row
+        return row.values
     
     return np.array([self.predict(get_row(i))
                      for i in range(X_test.shape[0])])

@@ -10,14 +10,12 @@ if __name__ == "__main__":
 
     X_train, y_train, vectorizer = processed_data(
         train_path,
-        sample_size=5000,
         cache_path=train_cache
     )
 
     X_test, y_test, _ = processed_data(
         test_path,
         vectorizer=vectorizer,
-        sample_size=2000,
         cache_path=test_cache
     )
 

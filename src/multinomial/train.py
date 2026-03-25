@@ -1,16 +1,16 @@
-from src.multinomial import MultinomialNB
-from scripts.data_saver import data_saver
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from src.multinomial import MultinomialNB
+from scripts.data_saver import data_saver
 
 
 if __name__ == "__main__":
 
-    train_path = r"C:\Users\DELL\naive-bayes-from-scratch\data\raw\aclImdb\train"
-    test_path = r"C:\Users\DELL\naive-bayes-from-scratch\data\raw\aclImdb\test"
-    train_cache = r"C:\Users\DELL\naive-bayes-from-scratch\data\cache\train_processed.pkl"
-    test_cache = r"C:\Users\DELL\naive-bayes-from-scratch\data\cache\test_processed.pkl"
+    train_path = r"data\raw\aclImdb\train"
+    test_path = r"data\raw\aclImdb\test"
+    train_cache = r"data\cache\train_processed.pkl"
+    test_cache = r"data\cache\test_processed.pkl"
 
     X_train, y_train, X_test, y_test, vocab = data_saver(
         train_path, test_path, train_cache, test_cache

@@ -3,7 +3,7 @@ from src.preprocessing.preprocessor import processed_data
 def data_saver(train_path, test_path, train_cache, test_cache):
     X_train, y_train, vocab = processed_data(
         train_path,
-        sample_size=5000,
+        sample_size=10000,
         cache_path=train_cache
     )
 
