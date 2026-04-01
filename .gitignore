@@ -20,3 +20,5 @@ Thumbs.db
 data/cache/*
 data/raw/*
 data/processed/*
+
+abalone.data
